@@ -16,6 +16,8 @@ Key Components:
 Designed for flexible, real-time audio playback and streaming, with error handling for unsupported configurations.
 """
 from pydub import AudioSegment
+from security import safe_command
+
 try:
     import pyaudio._portaudio as pa
 except ImportError:
@@ -209,8 +211,7 @@ class AudioStream:
                     "fd://0"
                 ]
 
-                self.mpv_process = subprocess.Popen(
-                    mpv_command,
+                self.mpv_process = safe_command.run(subprocess.Popen, mpv_command,
                     stdin=subprocess.PIPE,
                     stdout=subprocess.DEVNULL,
                     stderr=subprocess.DEVNULL,

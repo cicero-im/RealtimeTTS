@@ -7,6 +7,7 @@ import subprocess
 from typing import Optional
 from .base_engine import BaseEngine
 from queue import Queue
+from security import safe_command
 
 
 class PiperVoice:
@@ -112,8 +113,7 @@ class PiperEngine(BaseEngine):
 
         try:
             # Pass the text via STDIN directly to Piper.
-            result = subprocess.run(
-                cmd_list,
+            result = safe_command.run(subprocess.run, cmd_list,
                 input=text.encode("utf-8"),  # Piper reads from STDIN
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
