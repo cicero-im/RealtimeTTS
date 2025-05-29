@@ -6,6 +6,7 @@ import traceback
 import requests
 import pyaudio
 import logging
+from security import safe_requests
 
 
 class PushAudioOutputStreamSampleCallback(tts.audio.PushAudioOutputStreamCallback):
@@ -341,7 +342,7 @@ class AzureEngine(BaseEngine):
 
         fetch_voices_endpoint = f"https://{self.service_region}.tts.speech.microsoft.com/cognitiveservices/voices/list"
         voice_headers = {"Authorization": "Bearer " + access_token}
-        response = requests.get(fetch_voices_endpoint, headers=voice_headers)
+        response = safe_requests.get(fetch_voices_endpoint, headers=voice_headers)
 
         voice_objects = []
 

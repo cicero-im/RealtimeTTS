@@ -5,6 +5,7 @@ import wave
 import threading
 import argparse
 from queue import Queue
+from security import safe_requests
 
 # Argument parser setup
 parser = argparse.ArgumentParser(description="Run the TTS client.")
@@ -110,7 +111,7 @@ def request_tts(text):
     global start_time
     start_time = time.time()
     try:
-        response = requests.get(SERVER_URL, params={"text": text}, stream=True, timeout=10)
+        response = safe_requests.get(SERVER_URL, params={"text": text}, stream=True, timeout=10)
         response.raise_for_status()  # Raises an HTTPError if the response status is 4xx/5xx
 
         # Read data as it becomes available

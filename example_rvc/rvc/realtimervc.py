@@ -4,13 +4,13 @@ from queue import Empty
 from pathlib import Path
 from tqdm import tqdm
 import numpy as np
-import requests
 import torch
 import glob
 import gc
 import sys
 import os
 import re
+from security import safe_requests
 
 
 flag_vc = False
@@ -438,7 +438,7 @@ class RealtimeRVC:
         os.makedirs(file_path.parent, exist_ok=True)
 
         # Send a GET request to fetch the file
-        response = requests.get(url, stream=True)
+        response = safe_requests.get(url, stream=True)
         response.raise_for_status()
 
         # Get the total file size

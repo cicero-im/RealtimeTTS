@@ -7,7 +7,6 @@ from pathlib import Path
 from tqdm import tqdm
 import numpy as np
 import traceback
-import requests
 import logging
 import pyaudio
 import torch
@@ -17,6 +16,7 @@ import sys
 import io
 import os
 import re
+from security import safe_requests
 
 
 TIME_SLEEP_DEVICE_RESET = 2
@@ -954,7 +954,7 @@ class CoquiEngine(BaseEngine):
 
     @staticmethod
     def download_file(url, destination):
-        response = requests.get(url, stream=True)
+        response = safe_requests.get(url, stream=True)
         total_size_in_bytes = int(response.headers.get("content-length", 0))
         block_size = 1024
 
