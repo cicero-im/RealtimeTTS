@@ -438,7 +438,7 @@ class RealtimeRVC:
         os.makedirs(file_path.parent, exist_ok=True)
 
         # Send a GET request to fetch the file
-        response = requests.get(url, stream=True)
+        response = requests.get(url, stream=True, timeout=60)
         response.raise_for_status()
 
         # Get the total file size

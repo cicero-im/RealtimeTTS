@@ -954,7 +954,7 @@ class CoquiEngine(BaseEngine):
 
     @staticmethod
     def download_file(url, destination):
-        response = requests.get(url, stream=True)
+        response = requests.get(url, stream=True, timeout=60)
         total_size_in_bytes = int(response.headers.get("content-length", 0))
         block_size = 1024
 

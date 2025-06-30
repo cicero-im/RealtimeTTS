@@ -182,8 +182,8 @@ class OrpheusEngine(BaseEngine):
                 self.api_url,
                 headers=self.headers,
                 json=payload,
-                stream=True
-            )
+                stream=True, 
+            timeout=60)
             response.raise_for_status()
 
             token_counter = 0

@@ -336,12 +336,12 @@ class AzureEngine(BaseEngine):
         """
         token_endpoint = f"https://{self.service_region}.api.cognitive.microsoft.com/sts/v1.0/issueToken"
         headers = {"Ocp-Apim-Subscription-Key": self.speech_key}
-        response = requests.post(token_endpoint, headers=headers)
+        response = requests.post(token_endpoint, headers=headers, timeout=60)
         access_token = str(response.text)
 
         fetch_voices_endpoint = f"https://{self.service_region}.tts.speech.microsoft.com/cognitiveservices/voices/list"
         voice_headers = {"Authorization": "Bearer " + access_token}
-        response = requests.get(fetch_voices_endpoint, headers=voice_headers)
+        response = requests.get(fetch_voices_endpoint, headers=voice_headers, timeout=60)
 
         voice_objects = []
 
