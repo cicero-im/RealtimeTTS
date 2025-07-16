@@ -4,7 +4,6 @@ import logging
 import datetime
 
 from infer.lib.train import utils
-from random import randint, shuffle
 
 import torch
 
@@ -36,6 +35,7 @@ from infer.lib.train.losses import (
 )
 from infer.lib.train.mel_processing import mel_spectrogram_torch, spec_to_mel_torch
 from infer.lib.train.process_ckpt import savee
+import secrets
 
 
 logger = logging.getLogger(__name__)
@@ -100,7 +100,7 @@ def main():
         print("NO GPU DETECTED: falling back to CPU - this may take a while")
         n_gpus = 1
     os.environ["MASTER_ADDR"] = "localhost"
-    os.environ["MASTER_PORT"] = str(randint(20000, 55555))
+    os.environ["MASTER_PORT"] = str(secrets.SystemRandom().randint(20000, 55555))
     children = []
     for i in range(n_gpus):
         subproc = mp.Process(
@@ -389,7 +389,7 @@ def train_and_evaluate(
                     )
         else:
             # Load shuffled cache
-            shuffle(cache)
+            secrets.SystemRandom().shuffle(cache)
     else:
         # Loader
         data_iterator = enumerate(train_loader)

@@ -1,11 +1,11 @@
 from .base_engine import BaseEngine
 from queue import Queue
 import numpy as np
-import random
 import torch
 import sys
 import os
 import gc
+import secrets
 
 class StyleTTSVoice:
     def __init__(self,
@@ -182,13 +182,13 @@ class StyleTTSEngine(BaseEngine):
 
     def set_seeds(self, seed = 0):
         if seed == -1:
-            seed_value = random.randint(0, 2**32 - 1)
+            seed_value = secrets.SystemRandom().randint(0, 2**32 - 1)
         else:
             seed_value = seed
         torch.manual_seed(seed_value)
         torch.backends.cudnn.benchmark = False
         torch.backends.cudnn.deterministic = True
-        random.seed(seed_value)
+        secrets.SystemRandom().seed(seed_value)
         np.random.seed(seed_value)
         print(f"Seed set to {seed_value}")
 
