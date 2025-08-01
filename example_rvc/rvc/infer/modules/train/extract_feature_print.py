@@ -40,8 +40,6 @@ else:
 
     fairseq.modules.grad_multiply.GradMultiply.forward = forward_dml
 
-f = open("%s/extract_f0_feature.log" % exp_dir, "a+")
-
 
 def printt(strr):
     print(strr)
