@@ -17,7 +17,6 @@ logging.getLogger("numba").setLevel(logging.WARNING)
 exp_dir = sys.argv[1]
 
 device = torch_directml.device(torch_directml.default_device())
-f = open("%s/extract_f0_feature.log" % exp_dir, "a+")
 
 
 def printt(strr):

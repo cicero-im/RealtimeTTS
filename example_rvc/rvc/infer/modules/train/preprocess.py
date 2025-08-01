@@ -23,7 +23,6 @@ noparallel = sys.argv[5] == "True"
 per = float(sys.argv[6])
 
 mutex = multiprocessing.Lock()
-f = open("%s/preprocess.log" % exp_dir, "a+")
 
 
 def println(strr):
